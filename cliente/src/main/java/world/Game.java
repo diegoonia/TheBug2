@@ -68,6 +68,8 @@ public class Game implements Runnable {
 		jugadorRecibido = new Jugador();
 		keyManager = new KeyManager();
 		player = new Player(handler,0,0);
+		estaPeleando = false;
+
 	}
 	
 	private void init(){
@@ -77,9 +79,9 @@ public class Game implements Runnable {
 					   //en un BufferedImage
 		handler = new Handler(this);
 		gameCamera = new GameCamera(handler, 0, 0);
-		
 		gameState = new GameState(handler);
 		State.setState(gameState);
+		
 	}
 	
 	private void tick(){ //este metodo hace el update todo el tiempo
@@ -95,8 +97,6 @@ public class Game implements Runnable {
 	    float x = this.gameState.getWorld().getEntityManager().getPlayer().getX();
 	    float y = this.gameState.getWorld().getEntityManager().getPlayer().getY();
 	    //Humano = this.gameState.getWorld().getEntityManager().getPlayer().getPersonaje();
-	    //jugadorMio.setX(x);
-	    //jugadorMio.setY(y);
 	    jugadorMio = new Jugador(x,y);
 	    
 		ObjectMapper mapper = new ObjectMapper();
@@ -130,35 +130,49 @@ public class Game implements Runnable {
 		Player player2 = new Player(handler, 50, 50);
 		listaJugadores.add(player1);
 		listaJugadores.add(player2);
+		
+		if(jugadorRecibido.getId() != jugadorMio.getId()){
+			Player player2 = new Player(handler, jugadorRecibido.getX(),jugadorRecibido.getY());
+			player2.render(g);
+		}
+		
 		*/
 		
+		//Player player2 = new Player(handler, jugadorRecibido.getX(),jugadorRecibido.getY());
+		//player2.render(g);
 		sc = new Scanner(socket.getInputStream());
 		String input = sc.nextLine();
 		jugadorRecibido = mapper.readValue(input, Jugador.class);
+		
 		if(jugadorRecibido.getId() != jugadorMio.getId()){
-		Player player = new Player(handler, jugadorRecibido.getX(),jugadorRecibido.getY());
 		
-		//for (Player player : listaJugadores) {
-		player.render(g);
+			Player player = new Player(handler, jugadorRecibido.getX(),jugadorRecibido.getY());
 		
-			if(estaPeleando == false)
-			{
-				if( Math.abs(this.gameState.getWorld().getEntityManager().getPlayer().getX() - player.getX() ) < 30
-							&& Math.abs(this.gameState.getWorld().getEntityManager().getPlayer().getY()) - player.getY() < 30)
+		
+			player.render(g);
+			
+				if(estaPeleando == false)
 				{
-					ventanaPelea = new VentanaPelea(this.gameState.getWorld().getEntityManager().getPlayer(), player, this);
-					ventanaPelea.setVisible(true);
-					estaPeleando = true;
+					if( Math.abs(this.gameState.getWorld().getEntityManager().getPlayer().getX() - player.getX() ) < 30
+								&& Math.abs(this.gameState.getWorld().getEntityManager().getPlayer().getY()) - player.getY() < 30)
+					{
+						ventanaPelea = new VentanaPelea(this.gameState.getWorld().getEntityManager().getPlayer(), player, this);
+						ventanaPelea.setVisible(true);
+						estaPeleando = true;
+					}
 				}
-			}
-		//}
+
 		}
-		listaNpcs = new ArrayList<GameNpc>(); 
+
 		
-		GameNpc npc1 = new GameNpc(handler, 500, 200);		
-		GameNpc npc2 = new GameNpc(handler, 600, 50);
+		listaNpcs = new ArrayList<GameNpc>();
+		
+		GameNpc npc1 = new GameNpc(handler, 500, 200);
 		listaNpcs.add(npc1);
+		GameNpc npc2 = new GameNpc(handler, 600, 50);
 		listaNpcs.add(npc2);
+
+		
 		for (GameNpc npc : listaNpcs) {
 			npc.render(g);
 			
@@ -183,7 +197,7 @@ public class Game implements Runnable {
 	public void run(){
 		init();
 		
-		int fps = 60;
+		int fps = 100;
 		double timePerTick = 1000000000 / fps;
 		double delta = 0;
 		long now;

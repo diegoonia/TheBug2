@@ -50,7 +50,7 @@ public class ServerThread implements Runnable {// The Runnable interface should 
     @Override
     public void run() {//SOBRECARGAR DE RUN QUE SE REALIZARA CUANDO INICIE EL THREAD CREADO EN "SERVIDOR"
    
-    	try {
+    	try {/*
             this.sc = new Scanner(this.socket.getInputStream()); // OBTENGO EL CANAL DE ENTRADA DEL SOCKET
 
                 if (this.estaConectado()) { // VERIFICO QUE EL SOCKET ESTE CONECTADO, SI NO LO ESTA CIERRO ESE SOCKET.
@@ -58,13 +58,13 @@ public class ServerThread implements Runnable {// The Runnable interface should 
                         return;
                     }
                 } //Nano, i'm so sorry.
-                
+                */
                 while(true){
-
+                		
         				sc = new Scanner(socket.getInputStream());
         				String input = sc.nextLine();
         				jugadorParaActualizar = mapper.readValue(input, Jugador.class);
-        				jugadorParaActualizar.mostrarUbicacion();
+        				//jugadorParaActualizar.mostrarUbicacion();
         				
         				
         				for (int x = 0; x < this.listaDeConexiones.size(); x++) { // RECORRE TODA LA LISTA DE CONEXIONES DE LA SALA PARA ENVIAR EL MENSAJE RECIBIDO A TODOS.
