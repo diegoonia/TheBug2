@@ -1,0 +1,26 @@
+Conexion
+Desde el Cliente - ingresar(usuario;contraseña)
+
+Seleccion de Mundo
+Desde el Servidor - mundos(listaMundos)
+Desde el Cliente - seleccionarMundo(personajeSeleccionado;mundo)
+
+Creacion de Personaje
+Desde el Servidor - creacionPersonaje(cliente;listaCasta;listaRazas)
+Desde el Cliente - creacionPersonaje(nombrePersonaje;casta;raza)
+
+Subir Habilidades
+Desde el Cliente - subirHabilidad(personajeSeleccionado;habilidad;nivel)
+
+Equipar Items
+Desde el Cliente - equiparItem(personajeSeleccionado;itemAEquipar)
+
+Alianzas
+Desde el Cliente - alianza(personajeSeleccionado;nombreAlianza;accion)
+
+Combate
+Desde el Cliente - huirCombate(personajeSeleccionado;combate)
+Desde el Cliente - comenzarCombate(personajeSeleccionado;enemigo)
+
+Movimiento
+Desde el Cliente - moverA(personajeSeleccionado;x;y)

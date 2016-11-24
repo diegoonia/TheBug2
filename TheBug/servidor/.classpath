@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/test/resources"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-all-1.9.5.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.18-bin.jar"/>
+	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.15.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/dominio"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
