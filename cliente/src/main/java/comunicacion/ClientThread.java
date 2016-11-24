@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
 import jugador.MapaEnlaceDatos;
 import jugador.MapaFisico;
 import world.Game;
@@ -16,6 +18,8 @@ public class ClientThread implements Runnable {
     private PrintWriter out;
     private String mapaSeleccionado;
 
+
+
     public ClientThread(Socket socket, String mapaSeleccionado) {
         this.socket = socket;
         this.mapaSeleccionado=mapaSeleccionado;
@@ -24,9 +28,12 @@ public class ClientThread implements Runnable {
     @Override
     public void run() {
     	
-    	Game game = new Game("The bug", 640, 480);
+    	Game game = new Game("The bug", 640, 480, socket);
 		game.start();
-    	
+		
+		
+		
+
 //    	switch (mapaSeleccionado) {
 //		case "Fisica":
 //			MapaFisico mapaF = new MapaFisico();
@@ -39,7 +46,7 @@ public class ClientThread implements Runnable {
 //			//Poner mensaje de error
 //			break;
 //		}
-    	
+    	/*
     	ClientRecibirAct clientRecibirAct = new ClientRecibirAct(socket,mapaSeleccionado);
         Thread threadRecibirAct = new Thread(clientRecibirAct);
         threadRecibirAct.start();
@@ -47,7 +54,7 @@ public class ClientThread implements Runnable {
     	ClientAcciones clientAcciones = new ClientAcciones(socket,mapaSeleccionado);
         Thread threadRecibirAcciones = new Thread(clientAcciones);
         threadRecibirAcciones.start();
-    	
+    	*/
     	
     	
     	

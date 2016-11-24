@@ -1,0 +1,9 @@
+package comunicacion;
+import personaje.*;
+
+public class Player {
+	private int x;
+	private int y;
+	private Humano jugador;
+
+}

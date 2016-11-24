@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import comunicacion.AccionesAEnviar;
 import comunicacion.MapaAEnviar;
+import comunicacion.User;
 import logica.MapaAlianza;
 
 public class ServerMandarActualizacion implements Runnable {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
@@ -17,12 +18,12 @@ public class ServerMandarActualizacion implements Runnable {// The Runnable inte
     ArrayList<Socket> listaDeConexiones = new ArrayList<>();
     ArrayList<AccionesAEnviar> mensajes= new ArrayList<>();
     String mensaje=null;
+    Player jugadorAEnviar;
 
 
-
-    public ServerMandarActualizacion(ArrayList<Socket> listaDeSala,ArrayList<AccionesAEnviar> mensajes) {
+    public ServerMandarActualizacion(ArrayList<Socket> listaDeSala,Player jugadorAEnviar) {
         this.listaDeConexiones = listaDeSala;
-        this.mensajes=mensajes;
+        this.jugadorAEnviar = jugadorAEnviar;
     }
     public ServerMandarActualizacion() {
         this.listaDeConexiones = null;
@@ -44,13 +45,20 @@ public class ServerMandarActualizacion implements Runnable {// The Runnable inte
             	                                     
                     //this.mensaje = this.input.nextLine(); // GUARDO EN MENSAJE EL TEXTO RECIBIDO
                     //System.out.println(this.mensaje);
-            		
+            	
+            		//Poner semaforo aca
+            	
                     for (int x = 0; x < this.listaDeConexiones.size(); x++) { // RECORRE TODA LA LISTA DE CONEXIONES DE LA SALA PARA ENVIAR EL MENSAJE RECIBIDO A TODOS.
                         Socket tempSocket = this.listaDeConexiones.get(x);
-                        PrintWriter tempOut = new PrintWriter(tempSocket.getOutputStream()); // OBTENGO EL CANAL DE SALIDA PARA ENVIARLE EL MENSAJE A EL SOCKET
-                        tempOut.println("jose "+x); // ENVIA EL MENSAJE
-                        tempOut.flush(); // LIMPIO EL BUFFER DE SALIDA
+                        
+                       
+            			String jsonInString = mapper.writeValueAsString(jugadorAEnviar);
+            			PrintWriter out = new PrintWriter(socket.getOutputStream()); 
+            			out.println(jsonInString); 
+            			out.flush();
+
                     }
+                    //Liberar semafo
                 }
             }
          catch (Exception e) {

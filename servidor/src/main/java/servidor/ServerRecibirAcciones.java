@@ -18,8 +18,8 @@ import logica.MapaAlianza;
 public class ServerRecibirAcciones implements Runnable {// The Runnable interface should be implemented by any class whose instances are intended to be executed by a thread.
     Socket socket;
     Scanner input;
-    String mensaje = "";
-    ArrayList<String> mensajes= new ArrayList<String>();
+    Player jugadorRecibido;
+    ArrayList<Socket> listaDeConexiones;
     ObjectMapper mapper = new ObjectMapper();
 
     //CONSTRUCTOR DEL CHAT
@@ -27,7 +27,7 @@ public class ServerRecibirAcciones implements Runnable {// The Runnable interfac
         this.socket = socket;
     }
     
-    public ServerRecibirAcciones() {
+    public ServerRecibirAcciones(Socket socket, ArrayList<Socket> listaDeConexiones) {
         this.socket = null;
     }
     
@@ -38,7 +38,19 @@ public class ServerRecibirAcciones implements Runnable {// The Runnable interfac
 			try {
 				sc = new Scanner(socket.getInputStream());
 				String input = sc.nextLine();
-				AccionesAEnviar acciones = mapper.readValue(input, AccionesAEnviar.class);
+				jugadorRecibido = mapper.readValue(input, Player.class);
+				
+				
+				for (int x = 0; x < this.listaDeConexiones.size(); x++) { // RECORRE TODA LA LISTA DE CONEXIONES DE LA SALA PARA ENVIAR EL MENSAJE RECIBIDO A TODOS.
+                    Socket tempSocket = this.listaDeConexiones.get(x);
+        			String jsonInString = mapper.writeValueAsString(jugadorAEnviar);
+        			PrintWriter out = new PrintWriter(socket.getOutputStream()); 
+        			out.println(jsonInString); 
+        			out.flush();
+
+                }
+				
+				
 				//tengo q actualizar el arraylist mensajes del ServerThread con la actulizacion de los valores leidos.
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

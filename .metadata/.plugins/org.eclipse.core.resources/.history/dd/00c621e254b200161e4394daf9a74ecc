@@ -1,0 +1,20 @@
+package comunicacion;
+import personaje.*;
+
+public class Jugador {
+	private int x;
+	private int y;
+	private Humano jugador;
+	
+	public Jugador(int x, int y , Humano jugador){
+		this.x = x;
+		this.y = y;
+		this.jugador = jugador;
+		
+	}
+	
+	Jugador(){
+		
+		
+	}
+}

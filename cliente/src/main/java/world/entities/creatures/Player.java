@@ -31,6 +31,8 @@ public class Player extends Creature {
 		animRight = new Animation(500, Assets.player_right);
 	}
 
+	
+
 	@Override
 	public void tick() {
 		//Animations
